@@ -43,7 +43,7 @@ Qual é a saída da execução? Exatamente **p** vezes o texto "Hello World!", s
 
 ## Paralelizando um laço
 
-Como dito anteriormente o foco do OpenMP é a paralelização de laços. Normalmente, em um programa estruturas de *loop* representam a porção de código com maior custo computacional.
+Como dito anteriormente, o foco do OpenMP é a paralelização de laços. Normalmente em um algoritmo, as estruturas de *loop* representam a porção de código com maior custo computacional.
 
 Sendo assim, existe a diretiva de compilação `#pragma omp for` em OpenMP. A seguir, são apresentadas duas formas de paralelizar um laço:
 
@@ -93,3 +93,11 @@ int main(int argc, char *argv[])
 ```
 
 A função `omp_set_num_threads` define o número de *threads* que serão utilizadas durante a execução em paralelo. Já a função `omp_get_thread_num` retorna o identificador único da *thread* que está em execução no momento.
+
+## Problema 1 - SAXPY
+
+[Para ver a descrição do problema clique aqui](saxpy/README.md)
+
+## Problema 2 - Processar uma imagem em tons de cinza
+
+[Para ver a descrição do problema clique aqui](grayscale/README.md)

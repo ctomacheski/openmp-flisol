@@ -3,3 +3,5 @@
 runner
 .vscode
 !input.jpg
+!colored.jpg
+!gray.jpg
