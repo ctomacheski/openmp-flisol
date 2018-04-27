@@ -71,3 +71,5 @@ I = .299f * R + .587f * G + .114f * B
 ## Dicas
 
 Se o seu algoritmo não passou no teste, no arquivo `difference.jpg` é possível ver a diferença entre a imagem de referência `reference.jpg` e imagem de entrada `input.jpg`.
+
+### Paralelizando laços aninhados
