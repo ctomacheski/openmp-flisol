@@ -96,8 +96,8 @@ A função `omp_set_num_threads` define o número de *threads* que serão utiliz
 
 ## Problema 1 - SAXPY
 
-[Para ver a descrição do problema clique aqui](saxpy/README.md)
+[Para ver a descrição do problema clique aqui](./saxpy)
 
 ## Problema 2 - Processar uma imagem em tons de cinza
 
-[Para ver a descrição do problema clique aqui](grayscale/README.md)
+[Para ver a descrição do problema clique aqui](./grayscale)
