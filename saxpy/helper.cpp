@@ -34,5 +34,5 @@ void validate(vector<int> reference,
         }
     }
 
-    cout << "Sucess" << endl;
+    cout << "Success" << endl;
 }
