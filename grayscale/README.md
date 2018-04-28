@@ -88,16 +88,15 @@ for(int i = 0; i < n; i++)
 }
 ```
 
-Outra opção é repetir a diretiva de compilação ```#pragma omp parallel for``` para cada laço:
+Outra opção é usar a diretiva de compilação ```#pragma omp parallel for``` em um único laço expandido:
 
 ```cpp
 #pragma omp parallel for
-for(int i = 0; i < n; i++)
+for(int ij = 0; ij < n*n; ij++)
 {
-    #pragma omp parallel for
-    for(int j = 0; j < n; j++)
-    {
-        // trabalho
-    }
+    int i = ij / n;
+    int j = ij % n;
+
+    // trabalho
 }
 ```

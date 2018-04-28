@@ -51,7 +51,7 @@ Sendo assim, existe a diretiva de compilação `#pragma omp for` em OpenMP. A se
 #pragma omp parallel
 {
     #pragma omp for
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < n; i++)
     {
         cout << i << endl;
     }
@@ -62,7 +62,7 @@ Forma reduzida:
 
 ```cpp
 #pragma omp parallel for
-for(int i = 0; i < 10; i++)
+for(int i = 0; i < n; i++)
 {
     cout << i << endl;
 }
@@ -101,3 +101,74 @@ A função `omp_set_num_threads` define o número de *threads* que serão utiliz
 ## Problema 2 - Processar uma imagem
 
 [Para ver a descrição do problema clique aqui](./grayscale)
+
+## Sincronização com OpenMP
+
+Um problema muito comum em algoritmos paralelos é o acesso concorrente à um mesmo recurso, o que gera uma **condição de corrida**. Um exemplo é a redução de um vetor de inteiros.
+
+Código sequencial:
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    int sum = 0;
+    for(int i = 0; i < n; i++)
+    {
+        sum += array[i];
+    }
+
+    cout << sum << endl;
+}
+```
+
+Usando funções ```omp_init_lock```, ```omp_set_lock```, ```omp_unset_lock``` e ```omp_destroy_lock``` da API do OpenMP:
+
+```cpp
+#include <iostream>
+#include <omp.h>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    omp_lock_t writelock;
+    omp_init_lock(&writelock);
+
+    int sum = 0;
+    #pragma omp parallel for
+    for(int i = 0; i < n; i++)
+    {
+        omp_set_lock(&writelock);
+        sum += array[i];
+        omp_unset_lock(&writelock);
+    }
+
+    cout << sum << endl;
+
+    omp_destroy_lock(&writelock);
+}
+```
+
+Por fim, ainda existe outra forma! Por meio de uma diretiva de compilação:
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    int sum = 0;
+    #pragma omp parallel for reduction(+:sum)
+    for(int i = 0; i < n; i++)
+    {
+        sum += array[i];
+    }
+
+    cout << sum << endl;
+}
+```
