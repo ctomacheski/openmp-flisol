@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     cout << "Serial elapsed time: "
          << duration_cast<microseconds>(end_serial - begin_serial).count()
-         << "ms" << endl;
+         << "us" << endl;
 
     steady_clock::time_point begin_parallel = steady_clock::now();
     process_image_parallel(input_image, output_image, color_image.rows, color_image.cols);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
     cout << "Parallel elapsed time: "
          << duration_cast<microseconds>(end_parallel - begin_parallel).count()
-         << "ms" << endl;
+         << "us" << endl;
 
     post_process_image(reference_file, reference_image, color_image.rows, color_image.cols);
     post_process_image(output_file, output_image, color_image.rows, color_image.cols);

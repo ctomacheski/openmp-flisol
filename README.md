@@ -172,3 +172,4 @@ int main(int argc, char *argv[])
     cout << sum << endl;
 }
 ```
+[Para ver um comparativo entre as abordagens clique aqui](./examples)

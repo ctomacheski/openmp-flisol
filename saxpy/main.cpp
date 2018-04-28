@@ -30,7 +30,7 @@ int main()
 
     cout << "Serial elapsed time: "
          << duration_cast<microseconds>(end_serial - begin_serial).count()
-         << "ms" << endl;
+         << "us" << endl;
 
     steady_clock::time_point begin_parallel = steady_clock::now();
     saxpy_parallel(y_omp, x, a, SIZE);
@@ -38,7 +38,7 @@ int main()
 
     cout << "Parallel elapsed time: "
          << duration_cast<microseconds>(end_parallel - begin_parallel).count()
-         << "ms" << endl;
+         << "us" << endl;
 
     validate(y, y_omp, SIZE);
 
