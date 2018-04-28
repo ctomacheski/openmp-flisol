@@ -68,8 +68,36 @@ Sendo assim, vamos utilizar a seguinte fórmula (recomendada pelo NTSC) para com
 I = .299f * R + .587f * G + .114f * B
 ```
 
-## Dicas
+## Dica
 
 Se o seu algoritmo não passou no teste, no arquivo `difference.jpg` é possível ver a diferença entre a imagem de referência `reference.jpg` e imagem de entrada `input.jpg`.
 
-### Paralelizando laços aninhados
+## Paralelizando laços aninhados
+
+A paralelização de um laço aninhado pode ser feita de duas maneiras. A primeira é pelo uso da diretiva de compilação ```collapse(level)```, sendo ```level``` a quantidade de níveis aninhados que se deseja paralelizar.
+
+```cpp
+#pragma omp parallel for collapse(2)
+for(int i = 0; i < n; i++)
+{
+    for(int j = 0; j < n; j++)
+    {
+        // trabalho
+    }
+    // Não pode ter código aqui!
+}
+```
+
+Outra opção é repetir a diretiva de compilação ```#pragma omp parallel for``` para cada laço:
+
+```cpp
+#pragma omp parallel for
+for(int i = 0; i < n; i++)
+{
+    #pragma omp parallel for
+    for(int j = 0; j < n; j++)
+    {
+        // trabalho
+    }
+}
+```

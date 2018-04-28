@@ -59,10 +59,11 @@ for (i = 0; i < N; i++)
 
  - *Chunk size*
 
-```schedule(static, CHUNK)```
-```schedule(dynamic, CHUNK)```
+É possível definir **explicitamente** a quantidade de elementos em um laço que uma **thread** irá receber através de um segundo parâmetro ```CHUNK```. Como por exemplo: ```schedule(static, CHUNK)``` e ```schedule(dynamic, CHUNK)```. 
 
  - *Guided*
+
+Similar ao *dynamic scheduling*, porém o bloco de elementos (```CHUNK```) varia ao longo do tempo.
 
  ```cpp
 #pragma omp parallel for schedule(guided)
