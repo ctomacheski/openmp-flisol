@@ -4,10 +4,8 @@
 #include<iostream>
 #include<vector>
 
-using namespace std;
-
-void saxpy_parallel(vector<int> &y,
-    vector<int> x,
+void saxpy_parallel(std::vector<int> &y,
+    std::vector<int> x,
     int a,
     size_t n);
 

@@ -19,13 +19,12 @@ Crie o arquivo `main.cpp` contendo o seguinte código:
 
 ```cpp
 #include <iostream>
-using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
     #pragma omp parallel
     {
-        cout << "Hello World!\n";
+        std::cout << "Hello World!\n";
     }
 }
 ```
@@ -38,6 +37,8 @@ $ ./output
 ```
 
 Qual é a saída da execução? Exatamente **p** vezes o texto "Hello World!", sendo **p** o número de *threads* do processador.
+
+> Alguns processadores possuem uma diferença entre o número de processadores e *threads* lógicas. Para saber mais sobre o processador use o comando `cat /proc/cpuinfo`.
 
 `#pragma omp parallel` é uma **diretiva de compilação** do OpenMP que indica que o bloco de código será executado em paralelo.
 
@@ -53,7 +54,7 @@ Sendo assim, existe a diretiva de compilação `#pragma omp for` em OpenMP. A se
     #pragma omp for
     for(int i = 0; i < n; i++)
     {
-        cout << i << endl;
+        std::cout << i << std::endl;
     }
 }
 ```
@@ -64,10 +65,10 @@ Forma reduzida:
 #pragma omp parallel for
 for(int i = 0; i < n; i++)
 {
-    cout << i << endl;
+    std::cout << i << std::endl;
 }
 ```
-É possível perceber que a execução do laço não segue a ordenação do vetor percorrido.
+> A execução do laço não é determinística, ou seja, pode não seguir a ordenação do vetor percorrido.
 
 ## Usando funções da API do OpenMP
 
@@ -79,7 +80,7 @@ Para usar as funções da API é preciso incluir o *header file* `omp.h` no prog
 #include <stdio.h>
 #include <omp.h>
 
-int main(int argc, char *argv[])
+int main()
 {
     omp_set_num_threads(2);
 
@@ -106,14 +107,14 @@ A função `omp_set_num_threads` define o número de *threads* que serão utiliz
 
 Um problema muito comum em algoritmos paralelos é o acesso concorrente à um mesmo recurso, o que gera uma **condição de corrida**. Um exemplo é a redução de um vetor de inteiros.
 
+> Uma condição de corrida ocorre quando duas *threads* tentam obter um mesmo recurso, por exemplo: adicionar um valor em uma variável de soma.
+
 Código sequencial:
 
 ```cpp
 #include <iostream>
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
     int sum = 0;
     for(int i = 0; i < n; i++)
@@ -121,7 +122,7 @@ int main(int argc, char *argv[])
         sum += array[i];
     }
 
-    cout << sum << endl;
+    std::cout << sum << std::endl;
 }
 ```
 
@@ -131,9 +132,7 @@ Usando funções ```omp_init_lock```, ```omp_set_lock```, ```omp_unset_lock``` e
 #include <iostream>
 #include <omp.h>
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
     omp_lock_t writelock;
     omp_init_lock(&writelock);
@@ -147,10 +146,28 @@ int main(int argc, char *argv[])
         omp_unset_lock(&writelock);
     }
 
-    cout << sum << endl;
+    std::cout << sum << std::endl;
 
     omp_destroy_lock(&writelock);
 }
+```
+
+Usando a diretiva `#critical`:
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    int sum = 0;
+    #pragma omp parallel for
+    for(int i = 0; i < n; i++)
+    {
+        #pragma omp critical
+        sum += array[i];
+    }
+    std::cout << sum << std::endl;
+} 
 ```
 
 Por fim, ainda existe outra forma! Por meio de uma diretiva de compilação:
@@ -158,9 +175,7 @@ Por fim, ainda existe outra forma! Por meio de uma diretiva de compilação:
 ```cpp
 #include <iostream>
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
     int sum = 0;
     #pragma omp parallel for reduction(+:sum)
@@ -169,7 +184,7 @@ int main(int argc, char *argv[])
         sum += array[i];
     }
 
-    cout << sum << endl;
+    std::cout << sum << std::endl;
 }
 ```
 [Para ver um comparativo entre as abordagens clique aqui](./examples)

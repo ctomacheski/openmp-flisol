@@ -4,14 +4,12 @@
 #include<iostream>
 #include<vector>
 
-using namespace std;
-
-void initialize(vector<int> &y,
-    vector<int> &x,
+void initialize(std::vector<int> &y,
+    std::vector<int> &x,
     int &a);
 
-void validate(vector<int> reference,
-    vector<int> test,
+void validate(std::vector<int> reference,
+    std::vector<int> test,
     size_t n);
 
 #endif

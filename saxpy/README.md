@@ -7,12 +7,9 @@ Problema bem simples que consiste em: dado dois vetores **x** e **y**, um escala
 Para realizar o processamento da imagem é preciso implementar a função `saxpy_parallel` no arquivo `student.cpp`:
 
 ```cpp
-void saxpy_parallel(vector<int> &y,
-    vector<int> x,
-    int a,
-    size_t n)
+void saxpy_parallel(std::vector<int> &y, std::vector<int> x, int a, size_t n)
 {
-    // your code goes here
+    // seu código
 }
 ```
 
@@ -38,6 +35,7 @@ $ ./runner
 
 ## *Loop Scheduling*
 
+![](./schedules.jpeg)
  - *Static*
 
 É o padrão do OpenMP, quando um bloco paralelo é executado, as iterações são dividas entre as *threads*.
@@ -69,3 +67,5 @@ Similar ao *dynamic scheduling*, porém o bloco de elementos (```CHUNK```) varia
 #pragma omp parallel for schedule(guided)
 for (i = 0; i < N; i++)
  ```
+
+
