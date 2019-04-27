@@ -21,7 +21,7 @@ int main()
 
     std::vector<int> y_omp(y);
 
-    std::chrono::time_point begin_serial = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point begin_serial = std::chrono::steady_clock::now();
     saxpy_serial(y, x, a, SIZE);
     std::chrono::steady_clock::time_point end_serial = std::chrono::steady_clock::now();
 

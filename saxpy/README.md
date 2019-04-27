@@ -67,5 +67,3 @@ Similar ao *dynamic scheduling*, porém o bloco de elementos (```CHUNK```) varia
 #pragma omp parallel for schedule(guided)
 for (i = 0; i < N; i++)
  ```
-
-
