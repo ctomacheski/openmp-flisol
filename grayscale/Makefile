@@ -1,4 +1,4 @@
-OPENCV_FLAGS=-lopencv_core -lopencv_imgproc -lopencv_highgui
+OPENCV_FLAGS=-lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs
 GCC_FLAGS=-std=c++11 -fopenmp
 
 build: handler.o reference.o student.o main.cpp rgb.h
